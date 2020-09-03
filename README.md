@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # modular_slidy_teste
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# modular_slide_teste
+>>>>>>> e190dced43032a12bba5291ccd4b0a1225270c3d
