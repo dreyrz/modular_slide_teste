@@ -1,4 +1,4 @@
-package com.example.modular_slidy_teste
+package br.andrey.modular_slidy_teste
 
 import io.flutter.embedding.android.FlutterActivity
 
