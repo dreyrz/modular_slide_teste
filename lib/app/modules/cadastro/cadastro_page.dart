@@ -57,14 +57,8 @@ class _CadastroPageState
                     controller.formKey.currentState.save();
                   }
                 },
-                child: Text("Logar"),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  Modular.to.pushReplacementNamed("/cadastro");
-                },
                 child: Text("Cadastrar"),
-              )
+              ),
             ],
           ),
         ));

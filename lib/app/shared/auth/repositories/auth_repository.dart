@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:modular_slidy_teste/app/shared/helpers/firebase_errors.dart';
 import 'package:modular_slidy_teste/app/shared/models/user.dart';
 
 import 'auth_repository_interface.dart';
@@ -14,12 +14,9 @@ class AuthRepository implements IAuthRepository {
     try {
       final AuthResult result = await _auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-      print(result.user.uid);
-      print("deu certo");
-      Modular.to.pushReplacementNamed('/home');
       return result.user;
     } catch (e) {
-      print(e);
+      print(getErrorString(e.code));
     }
   }
 

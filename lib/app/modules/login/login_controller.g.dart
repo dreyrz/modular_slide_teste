@@ -24,6 +24,21 @@ mixin _$LoginController on _LoginBase, Store {
     });
   }
 
+  final _$userAtom = Atom(name: '_LoginBase.user');
+
+  @override
+  User get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(User value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
   final _$loginWithGoogleAsyncAction =
       AsyncAction('_LoginBase.loginWithGoogle');
 
@@ -32,23 +47,20 @@ mixin _$LoginController on _LoginBase, Store {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
-  final _$_LoginBaseActionController = ActionController(name: '_LoginBase');
+  final _$loginWithEmailPasswordAsyncAction =
+      AsyncAction('_LoginBase.loginWithEmailPassword');
 
   @override
-  void goToTeste() {
-    final _$actionInfo =
-        _$_LoginBaseActionController.startAction(name: '_LoginBase.goToTeste');
-    try {
-      return super.goToTeste();
-    } finally {
-      _$_LoginBaseActionController.endAction(_$actionInfo);
-    }
+  Future<dynamic> loginWithEmailPassword(dynamic user) {
+    return _$loginWithEmailPasswordAsyncAction
+        .run(() => super.loginWithEmailPassword(user));
   }
 
   @override
   String toString() {
     return '''
-loading: ${loading}
+loading: ${loading},
+user: ${user}
     ''';
   }
 }

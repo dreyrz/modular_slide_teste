@@ -12,7 +12,6 @@ import 'package:modular_slidy_teste/app/shared/repositories/localstorage/local_s
 
 import 'modules/cadastro/cadastro_module.dart';
 import 'modules/login/login_module.dart';
-import 'modules/teste/teste_module.dart';
 import 'shared/auth/repositories/auth_repository_interface.dart';
 import 'splash/splash_page.dart';
 
@@ -33,7 +32,6 @@ class AppModule extends MainModule {
         ModularRouter('/login',
             module: LoginModule(), transition: TransitionType.fadeIn),
         ModularRouter('/home', module: HomeModule()),
-        ModularRouter('/teste', module: TesteModule()),
         ModularRouter('/cadastro', module: CadastroModule()),
       ];
 

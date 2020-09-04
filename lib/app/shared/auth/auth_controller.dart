@@ -11,7 +11,6 @@ abstract class _AuthControllerBase with Store {
 
   @observable
   AuthStatus status = AuthStatus.loading;
-
   @observable
   FirebaseUser user;
 
@@ -21,6 +20,7 @@ abstract class _AuthControllerBase with Store {
     status = user == null ? AuthStatus.logoff : AuthStatus.login;
   }
 
+  @observable
   _AuthControllerBase() {
     _authRepository.getUser().then(setUser).catchError((e) {
       print('ERRORRRRRR');
@@ -29,7 +29,8 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future loginWithEmailPassword(user) async {
-    user = await _authRepository.getEmailPasswordLogin(user);
+    var userResult = await _authRepository.getEmailPasswordLogin(user);
+    return userResult;
   }
 
   @action
