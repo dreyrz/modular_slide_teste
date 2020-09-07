@@ -34,6 +34,12 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
+  Future<void> signUpWithEmailPassword(
+      user, Function onFail, Function onSuccess) async {
+    await _authRepository.getEmailPasswordSignUp(user, onFail, onSuccess);
+  }
+
+  @action
   Future loginWithGoogle() async {
     user = await _authRepository.getGoogleLogin();
   }

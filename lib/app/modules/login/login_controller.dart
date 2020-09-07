@@ -10,12 +10,10 @@ class LoginController = _LoginBase with _$LoginController;
 
 abstract class _LoginBase with Store {
   AuthController _auth = Modular.get();
+  User user = Modular.get();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @observable
   bool loading = false;
-
-  @observable
-  User user = User();
 
   @action
   Future loginWithGoogle() async {
@@ -32,8 +30,7 @@ abstract class _LoginBase with Store {
   Future loginWithEmailPassword(user) async {
     try {
       loading = true;
-      var firebaseUser = await _auth.loginWithEmailPassword(user);
-      print(firebaseUser.uid);
+      await _auth.loginWithEmailPassword(user);
       Modular.to.pushReplacementNamed('/home');
     } catch (e) {
       loading = false;

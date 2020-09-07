@@ -6,7 +6,7 @@ abstract class IAuthRepository {
   Future<FirebaseUser> getGoogleLogin();
   //Future getFacebookLogin();
   Future getEmailPasswordLogin(User user);
-  //Future getEmailPasswordSignUp(User user, Function onSuccess, Function onFail);
+  Future getEmailPasswordSignUp(User user, Function onFail, Function onSuccess);
   Future<String> getToken();
   Future getLogout();
 }

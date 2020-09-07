@@ -18,13 +18,27 @@ class _CadastroPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: controller.scaffoldKey,
         appBar: AppBar(
           title: Text("Cadastro"),
         ),
         body: Form(
           key: controller.formKey,
-          child: Column(
+          child: ListView(
             children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(hintText: 'Nome'),
+                autocorrect: true,
+                onSaved: (name) => controller.user.name = name,
+                validator: (name) {
+                  if (name.isEmpty) {
+                    return "Campo obrigatório";
+                  } else if (name.trim().split(' ').length <= 1) {
+                    return "Preenche seu nome completo";
+                  }
+                  return null;
+                },
+              ),
               TextFormField(
                 decoration: const InputDecoration(hintText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
@@ -51,13 +65,47 @@ class _CadastroPageState
                   return null;
                 },
               ),
+              TextFormField(
+                decoration: const InputDecoration(hintText: 'Confirmar Senha'),
+                obscureText: true,
+                onSaved: (confirmPassword) => {
+                  controller.user.confirmPassword = confirmPassword,
+                  print(controller.user)
+                },
+                validator: (pass) {
+                  if (pass.isEmpty || pass.length < 5) {
+                    return "Senha inválida";
+                  }
+                  return null;
+                },
+              ),
               RaisedButton(
                 onPressed: () {
                   if (controller.formKey.currentState.validate()) {
                     controller.formKey.currentState.save();
+                    if (controller.user.password !=
+                        controller.user.confirmPassword) {
+                      controller.scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: const Text("Senhas não coincidem"),
+                        backgroundColor: Colors.red,
+                      ));
+                      return;
+                    }
+                    controller.signUpWithEmailPassword(controller.user,
+                        /*onFail*/ (e) {
+                      controller.scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: Text("Falha ao cadastrar: $e"),
+                        backgroundColor: Colors.red,
+                      ));
+                    }, /*onSuccess*/ () {
+                      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                      Modular.to.pushReplacementNamed('/home');
+                    });
                   }
                 },
-                child: Text("Cadastrar"),
+                child: controller.loading
+                    ? CircularProgressIndicator()
+                    : Text("Cadastrar"),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modular_slidy_teste/app/shared/helpers/firebase_errors.dart';
 import 'package:modular_slidy_teste/app/shared/models/user.dart';
@@ -14,9 +15,26 @@ class AuthRepository implements IAuthRepository {
     try {
       final AuthResult result = await _auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
+      print("login deu certo");
       return result.user;
-    } catch (e) {
+    } on PlatformException catch (e) {
       print(getErrorString(e.code));
+    }
+  }
+
+  @override
+  Future<void> getEmailPasswordSignUp(
+      User user, Function onFail, Function onSuccess) async {
+    try {
+      final AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: user.email, password: user.password);
+      print("cadastro deu certo");
+      user.id = result.user.uid;
+      user.saveData();
+      onSuccess();
+    } on PlatformException catch (e) {
+      print("erro no repository");
+      onFail(getErrorString(e.code));
     }
   }
 
@@ -52,9 +70,10 @@ class AuthRepository implements IAuthRepository {
   Future getLogout() {
     return _auth.signOut();
   }
-}
+
 /*@override
   Future getFacebookLogin() {
-    // TODO: implement getFacebookLogin
+    // TOD: implement getFacebookLogin
     throw UnimplementedError();
   }*/
+}

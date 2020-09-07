@@ -24,21 +24,6 @@ mixin _$LoginController on _LoginBase, Store {
     });
   }
 
-  final _$userAtom = Atom(name: '_LoginBase.user');
-
-  @override
-  User get user {
-    _$userAtom.reportRead();
-    return super.user;
-  }
-
-  @override
-  set user(User value) {
-    _$userAtom.reportWrite(value, super.user, () {
-      super.user = value;
-    });
-  }
-
   final _$loginWithGoogleAsyncAction =
       AsyncAction('_LoginBase.loginWithGoogle');
 
@@ -59,8 +44,7 @@ mixin _$LoginController on _LoginBase, Store {
   @override
   String toString() {
     return '''
-loading: ${loading},
-user: ${user}
+loading: ${loading}
     ''';
   }
 }

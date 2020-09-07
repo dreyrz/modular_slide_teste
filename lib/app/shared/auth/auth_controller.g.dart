@@ -48,6 +48,16 @@ mixin _$AuthController on _AuthControllerBase, Store {
         .run(() => super.loginWithEmailPassword(user));
   }
 
+  final _$signUpWithEmailPasswordAsyncAction =
+      AsyncAction('_AuthControllerBase.signUpWithEmailPassword');
+
+  @override
+  Future<void> signUpWithEmailPassword(
+      dynamic user, Function onFail, Function onSuccess) {
+    return _$signUpWithEmailPasswordAsyncAction
+        .run(() => super.signUpWithEmailPassword(user, onFail, onSuccess));
+  }
+
   final _$loginWithGoogleAsyncAction =
       AsyncAction('_AuthControllerBase.loginWithGoogle');
 

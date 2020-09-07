@@ -34,26 +34,52 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
     });
   }
 
-  final _$userAtom = Atom(name: '_CadastroControllerBase.user');
+  final _$scaffoldKeyAtom = Atom(name: '_CadastroControllerBase.scaffoldKey');
 
   @override
-  User get user {
-    _$userAtom.reportRead();
-    return super.user;
+  GlobalKey<ScaffoldState> get scaffoldKey {
+    _$scaffoldKeyAtom.reportRead();
+    return super.scaffoldKey;
   }
 
   @override
-  set user(User value) {
-    _$userAtom.reportWrite(value, super.user, () {
-      super.user = value;
+  set scaffoldKey(GlobalKey<ScaffoldState> value) {
+    _$scaffoldKeyAtom.reportWrite(value, super.scaffoldKey, () {
+      super.scaffoldKey = value;
     });
+  }
+
+  final _$loadingAtom = Atom(name: '_CadastroControllerBase.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
+  final _$signUpWithEmailPasswordAsyncAction =
+      AsyncAction('_CadastroControllerBase.signUpWithEmailPassword');
+
+  @override
+  Future<void> signUpWithEmailPassword(
+      dynamic user, Function onFail, Function onSuccess) {
+    return _$signUpWithEmailPasswordAsyncAction
+        .run(() => super.signUpWithEmailPassword(user, onFail, onSuccess));
   }
 
   @override
   String toString() {
     return '''
 formKey: ${formKey},
-user: ${user}
+scaffoldKey: ${scaffoldKey},
+loading: ${loading}
     ''';
   }
 }
